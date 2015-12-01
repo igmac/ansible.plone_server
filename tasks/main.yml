@@ -126,9 +126,6 @@
     state=directory
     mode=0755
 
-- fail: dummy abort
-  when: plone_backup_path is not defined
-
 - name: Instance backup base directory
   when: plone_backup_path is defined
   file:
