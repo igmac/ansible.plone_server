@@ -150,7 +150,7 @@ zserver-threads = {{ instance_config.plone_zserver_threads }}
 [client1]
 <= client_base
 recipe = plone.recipe.zope2instance
-http-address = 127.0.0.1:{{ instance_config.plone_client_base_port }}
+http-address = {{ "%s" % instance_config.plone_client_listen_addr+":" if instance_config.plone_client_listen_addr|default("") != "" else "" }}{{ instance_config.plone_client_base_port }}
 {% if instance_config.plone_client1_extras %}
 {{ instance_config.plone_client1_extras }}
 {% endif %}
@@ -159,13 +159,13 @@ http-address = 127.0.0.1:{{ instance_config.plone_client_base_port }}
 [client{{ client }}]
 <= client_base
 recipe = plone.recipe.zope2instance
-http-address = 127.0.0.1:{{ "%s" % (instance_config.plone_client_base_port|int + loop.index) }}
+http-address = {{ "%s" % instance_config.plone_client_listen_addr+":" if instance_config.plone_client_listen_addr|default("") != "" else "" }}{{ "%s" % (instance_config.plone_client_base_port|int + loop.index) }}
 {% endfor %}
 
 [client_reserved]
 <= client_base
 recipe = plone.recipe.zope2instance
-http-address = 127.0.0.1:{{ "%s" % (instance_config.plone_client_base_port|int + instance_config.plone_client_count|int) }}
+http-address = {{ "%s" % instance_config.plone_client_listen_addr+":" if instance_config.plone_client_listen_addr|default("") != "" else "" }}{{ "%s" % (instance_config.plone_client_base_port|int + instance_config.plone_client_count|int) }}
 
 
 [backup]

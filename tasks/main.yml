@@ -104,7 +104,7 @@
   user:
     name={{ instance_config.plone_buildout_user }}
     group={{ instance_config.plone_group }}
-    generate_ssh_key=yes
+    #generate_ssh_key=yes
 
 - name: Ensure plone daemon user
   user:
@@ -126,8 +126,11 @@
     state=directory
     mode=0755
 
+- fail: dummy abort
+  when: plone_backup_path is not defined
+
 - name: Instance backup base directory
-  when: plone_backup_path
+  when: plone_backup_path is defined
   file:
     path={{ instance_config.plone_backup_path }}
     state=directory
@@ -210,6 +213,7 @@
     plone_instance_backup_path: "{{ plone_backup_path|default(plone_var_path, true) }}/{{ instance_config.plone_instance_name }}"
     supervisor_instance_discriminator: "{{ '%s_' % instance_config.plone_instance_name }}"
 
+
 - name: Instance directory
   file:
     path={{ plone_instance_home }}
@@ -245,7 +249,7 @@
     mode=02770
 
 - name: Instance backup directory
-  when: plone_backup_path
+  when: plone_backup_path is defined
   file:
     path="{{ plone_instance_backup_path }}"
     state=directory
