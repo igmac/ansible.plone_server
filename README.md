@@ -223,6 +223,7 @@ The address that the clients will bind to. The default is to bind the the localh
     plone_client_listen_addr: ""
 
 or
+
     plone_client_listen_addr:
 
 Which will cause it to listen on all addresses. This parameter is most useful if your web server is not on the same server (or LXC containter for example) as the Plone server, and is instead in it's own container.
