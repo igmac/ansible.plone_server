@@ -214,6 +214,16 @@ The version pins you specify here will be added to the `[versions]` section of y
 The port number for the Zope database server. Defaults to `8100`.
 
 
+### plone_client_listen_addr
+
+    plone_client_listen_addr: 127.0.0.1
+
+The address that the clients will bind to. The default is to bind the the localhost adaptor (127.0.0.1). You can either change this to your specific choice of address, or set it to 0.0.0.0 or just set it to
+> plone_client_listen_addr: ""
+or
+> plone_client_listen_addr:
+Which will cause it to listen on all addresses. This parameter is most useful if your web server is not on the same server (or LXC containter for example) as the Plone server, and is instead in it's own container.
+
 ### plone_client_base_port
 
     plone_client_base_port: 6080
